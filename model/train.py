@@ -45,7 +45,7 @@ def main(args):
         model.fit(train_ds, validation_data=val_ds, epochs=args.finetune_epochs)
 
     os.makedirs(SAVE_DIR, exist_ok=True)
-    model.save(os.path.join(SAVE_DIR, 'flowers_mnv2.keras')))
+    model.save(os.path.join(SAVE_DIR, "flowers_mnv2.keras"))
     print("Saved to", os.path.join(SAVE_DIR, "flowers_mnv2"))
 
 if __name__ == "__main__":
