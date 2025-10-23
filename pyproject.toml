@@ -16,6 +16,9 @@ dependencies = [
   "pytest",
 ]
 
+[tool.setuptools]
+packages = ["app", "model"]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 addopts = "-q"
