@@ -16,14 +16,9 @@ dependencies = [
   "pytest",
 ]
 
-[tool.pytest.ini_options]
-pythonpath = ["."]
-addopts = "-q"
-
 [tool.setuptools]
-# явно говорим setuptools какие пакеты собирать из плоской структуры
-packages = []
+packages = []  # используем явный find
 
 [tool.setuptools.packages.find]
 include = ["app*", "model*"]
-exclude = ["tests*", "saved_model*", ".github*", "scripts*", "docs*"]
+exclude = ["tests*", "saved_model*", ".github*", "docs*", "scripts*"]
