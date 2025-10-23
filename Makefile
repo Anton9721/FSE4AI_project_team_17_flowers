@@ -1,19 +1,53 @@
-.PHONY: setup train test run docker-build docker-run
+# --- Cross-platform Makefile (Windows / Linux / macOS / WSL) ---
+
+.PHONY: setup train test run docker-build docker-run clean help
+
+# Detect platform and set tool paths
+ifeq ($(OS),Windows_NT)
+  PY   := .venv\Scripts\python.exe
+  PIP  := .venv\Scripts\pip.exe
+  ST   := .venv\Scripts\streamlit.exe
+  SEP  := \ 
+else
+  PY   := .venv/bin/python
+  PIP  := .venv/bin/pip
+  ST   := .venv/bin/streamlit
+  SEP  := / 
+endif
+
+PORT ?= 8501
+EPOCHS ?= 3
+FTEPOCHS ?= 2
+
+help:
+	@echo "Targets:"
+	@echo "  setup         - create venv and install project (editable)"
+	@echo "  train         - train model"
+	@echo "  test          - run pytest"
+	@echo "  run           - run Streamlit app"
+	@echo "  docker-build  - build Docker image"
+	@echo "  docker-run    - run Docker container"
+	@echo "  clean         - remove .venv"
 
 setup:
-\tpython -m venv .venv && . .venv/bin/activate && pip install -U pip && pip install -e .
+	python -m venv .venv
+	$(PY) -m pip install -U pip
+	$(PIP) install -e .
 
 train:
-\tpython model/train.py --epochs 3 --finetune-epochs 2
+	$(PY) model$(SEP)train.py --epochs $(EPOCHS) --finetune-epochs $(FTEPOCHS)
 
 test:
-\tpytest
+	$(PY) -m pytest -q
 
 run:
-\tstreamlit run app/app.py
+	$(ST) run app$(SEP)app.py --server.port=$(PORT)
 
 docker-build:
-\tdocker build -t flowers:latest .
+	docker build -t flowers:latest .
 
 docker-run:
-\tdocker run -p 8501:8501 flowers:latest
+	docker run -p $(PORT):8501 flowers:latest
+
+clean:
+	-$(PY) -c "import shutil; shutil.rmtree('.venv', ignore_errors=True)"
