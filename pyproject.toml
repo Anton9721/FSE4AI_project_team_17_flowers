@@ -16,9 +16,6 @@ dependencies = [
   "pytest",
 ]
 
-[tool.setuptools]
-packages = []  # используем явный find
 
-[tool.setuptools.packages.find]
-include = ["app*", "model*"]
-exclude = ["tests*", "saved_model*", ".github*", "docs*", "scripts*"]
+[tool.setuptools]
+packages = ["app", "model"]
