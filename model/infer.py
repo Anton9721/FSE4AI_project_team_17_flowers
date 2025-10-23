@@ -5,11 +5,30 @@ import tensorflow_datasets as tfds
 from PIL import Image
 
 IMG_SIZE = 224
+MODEL_DIR = "saved_model"
+KERAS_PATH = os.path.join(MODEL_DIR, "flowers_mnv2.keras")
+H5_PATH = os.path.join(MODEL_DIR, "flowers_mnv2.h5")
+LEGACY_DIR = os.path.join(MODEL_DIR, "flowers_mnv2")
 
 class FlowerInfer:
-    def __init__(self, model_path="saved_model/flowers_mnv2"):
-        self.model = tf.keras.models.load_model(model_path)
-        # классы в том порядке, как в tf_flowers
+    def __init__(self, model_path: str = None):
+        # приоритет: .keras -> .h5 -> (legacy dir) -> ошибка с подсказкой
+        path = model_path or (KERAS_PATH if os.path.exists(KERAS_PATH)
+                              else (H5_PATH if os.path.exists(H5_PATH) else LEGACY_DIR))
+        if path.endswith(".keras") or path.endswith(".h5"):
+            self.model = tf.keras.models.load_model(path)
+        elif os.path.isdir(path):
+            raise RuntimeError(
+                "Обнаружен legacy SavedModel каталог.\n"
+                "Пожалуйста, пересохраните модель в формате `.keras` "
+                "(обновите train.py и запустите `make train`)."
+            )
+        else:
+            raise FileNotFoundError(
+                "Модель не найдена. Обучите её (`make train`) — "
+                "файл должен появиться: saved_model/flowers_mnv2.keras"
+            )
+
         info = tfds.builder("tf_flowers").info
         self.class_names = [str(n) for n in info.features["label"].names]
 
