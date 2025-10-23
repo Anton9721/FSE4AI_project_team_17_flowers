@@ -1,19 +1,44 @@
-.PHONY: setup train test run docker-build docker-run
+.PHONY: setup train test run docker-build docker-run clean help
+
+ifeq ($(OS),Windows_NT)
+  PY   := .venv\Scripts\python.exe
+  PIP  := .venv\Scripts\pip.exe
+  ST   := .venv\Scripts\streamlit.exe
+else
+  PY   := .venv/bin/python
+  PIP  := .venv/bin/pip
+  ST   := .venv/bin/streamlit
+endif
+
+PORT ?= 8501
+EPOCHS ?= 3
+FTEPOCHS ?= 2
+
+APP_PATH   := app/app.py
+TRAIN_PATH := model/train.py
+
+help:
+	@echo "Targets: setup | train | test | run | docker-build | docker-run | clean"
 
 setup:
-\tpython -m venv .venv && . .venv/bin/activate && pip install -U pip && pip install -e .
+	python -m venv .venv
+	$(PY) -m pip install -U pip
+	$(PIP) install -e .
 
 train:
-\tpython model/train.py --epochs 3 --finetune-epochs 2
+	$(PY) $(TRAIN_PATH) --epochs $(EPOCHS) --finetune-epochs $(FTEPOCHS)
 
 test:
-\tpytest
+	$(PY) -m pytest -q
 
 run:
-\tstreamlit run app/app.py
+	$(ST) run $(APP_PATH) --server.port=$(PORT)
 
 docker-build:
-\tdocker build -t flowers:latest .
+	docker build -t flowers:latest .
 
 docker-run:
-\tdocker run -p 8501:8501 flowers:latest
+	docker run -p $(PORT):8501 flowers:latest
+
+clean:
+	-$(PY) -c "import shutil; shutil.rmtree('.venv', ignore_errors=True)"
