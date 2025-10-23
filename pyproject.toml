@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flowers-classifier"
+version = "0.1.0"
+description = "Simple flower classification demo (MobileNetV2 + Streamlit)"
+requires-python = ">=3.10"
+dependencies = [
+  "tensorflow>=2.14",
+  "tensorflow-datasets>=4.9",
+  "numpy",
+  "Pillow",
+  "streamlit",
+  "pytest",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+addopts = "-q"

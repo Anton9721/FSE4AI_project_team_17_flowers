@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.saved/
+saved_model/
+*.mp4
+*.log
