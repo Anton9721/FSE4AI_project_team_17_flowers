@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: flowers-classifier
+Version: 0.1.0
+Summary: Simple flower classification demo (MobileNetV2 + Streamlit)
+Requires-Python: >=3.10
+Requires-Dist: tensorflow>=2.14
+Requires-Dist: tensorflow-datasets>=4.9
+Requires-Dist: numpy
+Requires-Dist: Pillow
+Requires-Dist: streamlit
+Requires-Dist: pytest
