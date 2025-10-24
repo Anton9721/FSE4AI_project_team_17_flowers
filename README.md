@@ -146,5 +146,42 @@ Extend dataset with user-uploaded images
 
 Introduce CI/CD workflow for Docker publishing
 
+---
+
+## 🌍 Public Access via Docker + ngrok
+
+For quick demo or remote sharing, you can run the app inside Docker **with a public HTTPS URL via ngrok**.
+
+### 1️⃣ Launch the ngrok-enabled stack
+```bash
+docker compose -f docker-compose.ngrok.yml up -d --build
+```
+This starts two containers:
+
+flowers_app_ngrok — the Streamlit app
+
+flowers_ngrok — the ngrok tunnel exposing it online
+
+2️⃣ Retrieve your public URL
+
+After the containers start, run:
 
 
+```bash
+
+curl -s http://localhost:4040/api/tunnels | grep -o 'https://[^"]*ngrok[^"]*' | head -n1
+
+```
+
+You will see a link like: https://<random>.ngrok-free.app
+
+
+Open this link in your browser or share it — anyone can view your deployed app instantly 🚀
+
+3️⃣ Stop containers when done
+
+```bash
+
+docker compose -f docker-compose.ngrok.yml down
+
+```
