@@ -7,12 +7,12 @@ The model is trained on the **TensorFlow Flowers** dataset and deployed as a sim
 
 ## Team Roles
 
-- **Participant A** — Model development and training  
+- **Participant A (abramov-de)** — Model development and training  
   - Implemented `model/train.py`
   - Trained the MobileNetV2 classifier and saved it as `.keras`
   - Wrote unit tests for model loading and inference.
 
-- **Participant B** — Testing and Continuous Integration  
+- **Participant B (GibaDuliya)** — Testing and Continuous Integration  
   - Added smoke tests for both the app and the model using `pytest`
   - Configured GitHub Actions CI for automated testing on each push/PR
   - Ensured reproducibility and dependency consistency.
