@@ -148,7 +148,7 @@ Introduce CI/CD workflow for Docker publishing
 
 ---
 
-## 🌍 Public Access via Docker + ngrok
+## Public Access via Docker + ngrok
 
 For quick demo or remote sharing, you can run the app inside Docker **with a public HTTPS URL via ngrok**.
 
