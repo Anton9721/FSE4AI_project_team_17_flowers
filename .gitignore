@@ -6,4 +6,15 @@ saved_model/
 *.mp4
 *.log
 flowers_classifier.egg-info/
+# venv
+.venv/
+# python cache
+__pycache__/
+*.pyc
+# build artifacts
 *.egg-info/
+dist/
+build/
+# model binaries (храним локально, не в git)
+saved_model/*.keras
+saved_model/*.h5
