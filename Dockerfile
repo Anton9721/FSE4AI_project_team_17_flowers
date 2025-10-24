@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 COPY requirements.txt pyproject.toml ./
 RUN pip install --no-cache-dir -U pip \
  && pip install --no-cache-dir -r requirements.txt \
- && pip install --no-cache-dir -e .
+ && pip install --no-cache-dir .
 
 # код (модель будет примонтирована томом при запуске)
 COPY model/ model/
