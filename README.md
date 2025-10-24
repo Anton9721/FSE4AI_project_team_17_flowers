@@ -13,7 +13,7 @@ make run     # http://localhost:8501
 - Testing framework: **pytest**
 - Continuous Integration: **GitHub Actions**
 - All tests automatically run on each push and pull request.
-- Current status: ![CI](https://github.com/<username>/flowers-classifier/actions/workflows/ci.yml/badge.svg)
+- Current status: ![CI](https://github.com/Anton9721/flowers-classifier/actions/workflows/ci.yml/badge.svg)
 
 ### Local run
 ```bash
