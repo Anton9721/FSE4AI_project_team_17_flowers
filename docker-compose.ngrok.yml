@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    container_name: flowers_app_ngrok
+    # порт наружу не публикуем — ngrok ходит по внутренней сети
+    volumes:
+      - ./saved_model:/app/saved_model:ro
+    restart: unless-stopped
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: flowers_ngrok
+    command: "start --all --config /etc/ngrok.yml"
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml:ro
+    depends_on:
+      - app
+    restart: unless-stopped
+    ports:
+      - "4040:4040"   # локальная панель/API ngrok (получим публичный URL)

@@ -1,0 +1,13 @@
+version: "2"
+authtoken: 34W22Lk9DSPZVe07el4PfVJ1lv8_46Sr2X7sTXpMw7mr8GwBf
+region: eu
+
+tunnels:
+  flowers:
+    addr: app:8501
+    proto: http
+    schemes: [https]
+    inspect: false
+    # basic_auth:
+    #   - "user:password"
+    # domain: your-fixed-subdomain.ngrok.app   # (платный тариф)
