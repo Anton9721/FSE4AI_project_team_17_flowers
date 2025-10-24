@@ -58,7 +58,7 @@ Streamlit UI app: `app/app.py`
 
 ---
 
-## ⚙️ Local Development
+## Local Development
 
 ```bash
 # Create virtual environment and install dependencies
@@ -74,7 +74,10 @@ make test
 make run
 # Open http://localhost:8501
 
-Testing & CI
+```
+
+
+## Testing & CI
 
 Testing framework: pytest
 
@@ -84,25 +87,32 @@ Tests automatically run on every push and pull request.
 
 To run locally:
 
+```bash
 pytest -v
+```
 
-Docker Deployment
+## Docker Deployment
 
 You can run the full app inside a Docker container.
 This allows anyone to reproduce the environment regardless of OS.
 
 1️⃣ Build the image
+
+```bash
 docker build -t flowers:latest .
+```
 
 2️⃣ Run the container
 
 If you already have a trained model:
 
+```bash
 docker run -d \
   -p 8501:8501 \
   -v "$PWD/saved_model:/app/saved_model" \
   --name flowers_app \
   flowers:latest
+```
 
 
 Then open http://localhost:8501
@@ -112,19 +122,21 @@ Then open http://localhost:8501
 
 If you prefer to train inside Docker:
 
+```bash
 docker run -it \
   -v "$PWD:/app" \
   flowers:latest \
   bash -c "python model/train.py --epochs 3 --finetune-epochs 2"
+```
 
-Environment Summary
+## Environment Summary
 Component	Version
 Python	3.11
 TensorFlow	≥ 2.14
 Streamlit	Latest
 OS	Cross-platform (Linux/Windows via Makefile)
 
-Future Improvements
+## Future Improvements
 
 Add automatic model download on first launch
 
@@ -133,5 +145,6 @@ Implement cloud deployment (Streamlit Cloud / DockerHub)
 Extend dataset with user-uploaded images
 
 Introduce CI/CD workflow for Docker publishing
+
 
 
